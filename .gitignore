@@ -1,36 +1,44 @@
-# 依赖
-node_modules
-.pnp
-.pnp.js
+# ========== 所有子项目通用 - 依赖包（必忽略） ==========
+**/node_modules/
+**/.pnp
+**/.pnp.js
 
-# 构建产物
-dist
-dist-ssr
-*.local
+# ========== 构建输出产物 ==========
+**/dist
+**/dist-ssr
+**/*.local
 
-# 编辑器
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# ========== 环境变量（敏感配置，禁止提交！） ==========
+**/.env
+**/.env.local
+**/.env.development.local
+**/.env.production.local
 
-# 日志
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# ========== 自动生成类型定义（Vue自动导入插件） ==========
+**/auto-imports.d.ts
+**/components.d.ts
 
-# 自动导入生成的类型
-auto-imports.d.ts
-components.d.ts
+# ========== 日志文件 ==========
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
 
+# ========== 编辑器IDE个人配置 ==========
+**/.vscode/*
+# 保留vscode推荐插件配置（可选，需要就取消下面注释）
+# !**/.vscode/extensions.json
+**/.idea/
 
-# 环境变量文件
-.env
-.env.*
+# ========== 系统垃圾文件 ==========
+**/.DS_Store
+**/Thumbs.db
+**/*.suo
+**/*.ntvs*
+**/*.njsproj
+**/*.sln
+**/*.sw?
 
+# ========== 运行时上传缓存（后端项目用，你现在前端demo可保留） ==========
+**/uploads/*
+!**/uploads/.gitkeep
