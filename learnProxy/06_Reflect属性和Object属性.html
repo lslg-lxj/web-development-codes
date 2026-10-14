@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const obj = {
+        name: '张三',
+        age: 18
+      };
+
+      // Object.defineProperty()方法定义属性时
+      // configurable属性默认值为false，表示该属性不能被删除
+      Object.defineProperty(obj, 'name', {
+        configurable: false
+      });
+
+      // Reflect.defineProperty(obj, 'age', {
+      //   configurable: true
+      // });
+
+      // 1.用以前的方式删除对象属性
+      // delete obj.name;
+      // if (obj.name) {
+      //   console.log('name属性删除失败');
+      // } else {
+      //   console.log('name属性删除成功');
+      // }
+
+      // 2.使用Reflect.deleteProperty()删除对象属性
+      const result = Reflect.deleteProperty(obj, 'name');
+      console.log(result); // false
+    </script>
+  </body>
+</html>

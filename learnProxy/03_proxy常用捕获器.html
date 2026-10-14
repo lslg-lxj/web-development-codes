@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2 class="name"></h2>
+    <h2 class="age"></h2>
+    <script>
+      const obj = {
+        name: '张三',
+        age: 18,
+        height: 1.88,
+        password: '123456'
+      };
+      const proxyObj = new Proxy(obj, {
+        // get: function (target, key, receiver) {
+        //   console.log(`监听:获取${key}`);
+        //   console.log('target:', target); // 原始对象
+        //   console.log('key:', key); // name
+        //   console.log('receiver:', receiver); // 代理对象
+        //   return target[key];
+        // }
+
+        get: function (target, key, receiver) {
+          if (key === 'password') {
+            return '****';
+          }
+          console.log(`监听:获取${key}`);
+          return target[key];
+        },
+
+        // set: function (target, key, value, receiver) {
+        //   console.log(`监听:设置${key}`, value);
+        //   console.log('target:', target); // 原始对象
+        //   console.log('key:', key);
+        //   console.log('value:', value); //newValue
+        //   console.log('receiver:', receiver); // 代理对象
+        //   target[key] = value;
+        //   return true;
+        // }
+
+        set: function (target, key, value, receiver) {
+          if (key === 'password') {
+            console.log('密码不能修改');
+            return false;
+          }
+          console.log(`监听:设置${key}`, value);
+          target[key] = value;
+          return true;
+        }
+      });
+
+      proxyObj.password = '654321';
+      // proxyObj.name = '李四';
+      // console.log(proxyObj.name);
+      // console.log(proxyObj.name);
+      // console.log(proxyObj.password);
+    </script>
+  </body>
+</html>

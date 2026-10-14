@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+      function Student(name, age) {
+        // 1.借用构造函数
+        // Person.call(this, name, age);
+      }
+      // const student = new Student("张三", 18);
+      // 2.借助Reflect.construct()方法来实现继承
+      const stu = Reflect.construct(Person, ['张三', 18], Student);
+      console.log(stu);
+      console.log(stu instanceof Student);
+      console.log(stu.__proto__ === Student.prototype);
+    </script>
+  </body>
+</html>

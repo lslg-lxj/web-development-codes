@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2 class="name"></h2>
+    <h2 class="age"></h2>
+    <script>
+      const obj = {
+        name: '张三',
+        age: 18,
+        height: 1.88
+      };
+
+      // 需求：监听对象属性的所有操作
+      // const nameEl = document.querySelector('.name');
+      // nameEl.textContent = obj.name;
+
+      // 直接修改对象属性,不是响应式的
+      // obj.name = '李四';
+      // 需要手动刷新
+      // nameEl.textContent = obj.name;
+
+      // 监听属性的操作
+      // 1.针对一个属性
+      // let _name = obj.name;
+      // Object.defineProperty(obj, 'name', {
+      //   set: function (newValue) {
+      //     console.log('给name设置了新的值', newValue);
+      //     _name = newValue;
+      //   },
+      //   get: function (newValue) {
+      //     console.log('监听：获取name的值');
+      //     return _name;
+      //   }
+      // });
+      // console.log(obj.name);
+      // obj.name = '李四';
+
+      // 2.遍历所有的属性
+      // vue2实现响应式的原理;
+      const keys = Object.keys(obj);
+      // 块级作用域（闭包）
+      for (const key of keys) {
+        let value = obj[key];
+        Object.defineProperty(obj, key, {
+          // 描述符：访问器
+          set: function (newValue) {
+            console.log(`给${key}设置了新的值`, newValue);
+            value = newValue;
+          },
+          get: function (newValue) {
+            console.log(`监听：获取${key}的值`);
+            return value;
+          }
+        });
+      }
+
+      console.log(obj.name);
+      obj.age = 25;
+      console.log(obj.height);
+      obj.height = 2.0;
+
+      // Object.defineProperties(obj, {
+      //   name: {
+      //     get() {
+      //       console.log('get name');
+      //       return obj._name;
+      //     },
+      //     set(value) {
+      //       console.log('set name', value);
+      //       obj._name = value;
+      //     }
+      //   },
+      //   age: {
+      //     get() {
+      //       console.log('get age');
+      //       return obj._age;
+      //     },
+      //     set(value) {
+      //       console.log('set age', value);
+      //       obj._age = value;
+      //     }
+      //   }
+      // });
+    </script>
+  </body>
+</html>

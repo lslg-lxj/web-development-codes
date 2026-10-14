@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2 class="name"></h2>
+    <h2 class="age"></h2>
+    <script>
+      const obj = {
+        name: '张三',
+        age: 18,
+        height: 1.88
+      };
+
+      const proxyObj = new Proxy(obj, {
+        get: function (target, key, receiver) {
+          console.log(`监听:获取${key}`);
+          return target[key];
+        },
+
+        set: function (target, key, value, receiver) {
+          console.log(`监听:设置${key}`, value);
+          target[key] = value;
+          return true;
+        },
+        deleteProperty: function (target, key) {
+          console.log(`监听:删除${key}`);
+          delete target[key];
+          return true;
+        },
+        has: function (target, key) {
+          console.log(`监听:判断${key}是否存在`);
+          return key in target;
+        }
+      });
+
+      console.log('age' in proxyObj);
+      // delete proxyObj.height;
+    </script>
+  </body>
+</html>
