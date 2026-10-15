@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 异步任务
+      // 传入一个回调函数 监听异步操作
+      function exeCode(counter) {
+        // 参数中的回调函数立即执行
+        const promise = new Promise((resolve, reject) => {
+          // 立即执行
+          setTimeout(() => {
+            if (counter > 0) {
+              let total = 0;
+              for (let i = 0; i < counter; i++) {
+                total += i;
+              }
+              // 成功的回调
+              resolve(total);
+            } else {
+              // 失败的回调
+              reject(`${counter}<=0，直接返回`);
+            }
+          }, 3000);
+        });
+        // 执行完成：返回一个凭证（promise）
+        return promise;
+      }
+
+      exeCode(10)
+        // 成功的监听
+        .then((value) => {
+          console.log('promise调用，异步函数执行完毕');
+          console.log('异步操作的结果是：', value);
+        })
+        // 失败的监听
+        .catch((error) => {
+          console.log('promise调用，异步函数执行失败');
+          console.log('异步操作的错误是：', error);
+        });
+    </script>
+  </body>
+</html>

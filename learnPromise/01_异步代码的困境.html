@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 异步任务
+      // 传入一个回调函数 监听异步操作
+      function exeCode(counter, successCallback, failCallback) {
+        // 延迟执行
+        setTimeout(() => {
+          console.log('Hello World');
+          console.log('hello Code');
+
+          if (counter > 0) {
+            let total = 0;
+            for (let i = 0; i < counter; i++) {
+              total += i;
+            }
+            console.log(total);
+            // 执行回调函数
+            // 在异步操作完成后调用回调函数
+            successCallback(total);
+          } else {
+            failCallback(`${counter}<=0，直接返回`);
+          }
+        }, 3000);
+      }
+
+      exeCode(
+        10,
+        (value) => {
+          console.log('callback调用，异步函数执行完毕');
+          console.log('异步操作的结果是：', value);
+        },
+        (error) => {
+          console.log('callback调用，异步函数执行失败');
+          console.log('异步操作的错误是：', error);
+        }
+      );
+
+      // ES5之前，处理异步的代码都是这样封装的
+    </script>
+  </body>
+</html>

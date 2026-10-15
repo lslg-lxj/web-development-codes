@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 创建三个promise对象
+      const promise1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('promise1成功的回调');
+        }, 1000);
+      });
+      const promise2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // resolve('promise2成功的回调');
+          // 突发错误，promise2失败
+          reject('promise2失败的回调');
+        }, 3000);
+      });
+      const promise3 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('promise3成功的回调');
+        }, 5000);
+      });
+
+      // 竞速方法Promise.race
+      // 最先决议的promise对象的状态和返回值作为race方法返回的promise对象的状态和返回值
+      // 无论结果是成功还是失败，都会返回一个新的promise对象
+      Promise.race([promise1, promise2, promise3])
+        .then((res) => {
+          console.log('res:', res);
+        })
+        .catch((error) => {
+          console.log('error:', error);
+        });
+
+      // Promise.any方法
+      // 只要有一个promise对象成功，返回一个新的promise对象(第一个成功的promise对象的决议状态和返回值)
+      // 只有所有的promise对象都失败，返回一个新的promise对象，状态为rejected，返回值是一个AggregateError对象，包含所有失败的promise对象的返回值
+      Promise.any([promise1, promise2, promise3])
+        .then((res) => {
+          console.log('res:', res);
+        })
+        .catch((error) => {
+          console.log('error:', error);
+        });
+    </script>
+  </body>
+</html>

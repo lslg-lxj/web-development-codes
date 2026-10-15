@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const promise = new Promise((resolve, reject) => {
+        // 1.resolve的值可以是任意类型的值，包括基本类型、对象、数组、函数等
+        // resolve('aaaaa');
+
+        // 2.resolve的值也可以是一个promise对象
+        // 当前promise对象的状态会跟随传入的promise对象的状态而改变
+        // resolve(
+        //   new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //       resolve('传入promise对象的resolve值');
+        //     }, 2000);
+        //   })
+        // );
+
+        // 3.resolve的值也可以是一个thenable对象（具有then方法的对象）
+        resolve({
+          then: function (resolve, reject) {
+            setTimeout(() => {
+              resolve('传入thenable对象的resolve值');
+            }, 2000);
+          }
+        });
+      });
+      promise
+        .then((value) => {
+          console.log('成功的回调');
+          console.log('value:', value);
+        })
+        .catch((error) => {
+          console.log('失败的回调');
+        });
+    </script>
+  </body>
+</html>

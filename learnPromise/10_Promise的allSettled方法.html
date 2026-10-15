@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 创建三个promise对象
+      const promise1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('promise1成功的回调');
+        }, 1000);
+      });
+      const promise2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // resolve('promise2成功的回调');
+          // 突发错误，promise2失败
+          reject('promise2失败的回调');
+        }, 3000);
+      });
+      const promise3 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('promise3成功的回调');
+        }, 5000);
+      });
+
+      // Promise.allSettled方法的参数是一个数组
+      // 数组中可以是任意类型的值，包括基本类型、对象、数组、函数等
+      // Promise.allSettled方法的返回值是一个promise对象
+      // 将多个promise对象包装成一个新的promise对象
+      // Promise.allSettled方法的返回值是一个数组，数组中包含所有promise对象的状态和返回值，顺序与传入的promise对象的顺序一致
+      // 1.所有的promise对象都成功，返回一个新的promise对象，状态为fulfilled，返回值是一个数组，数组中包含所有promise对象的状态和返回值，顺序与传入的promise对象的顺序一致
+      // 2.只要有一个promise对象失败，返回一个新的promise对象，状态为fulfilled，返回值是一个数组，数组中包含所有promise对象的状态和返回值，顺序与传入的promise对象的顺序一致
+      // 可以在返回对象中查看所有promise对象的状态和返回值，进行相应的处理
+      Promise.allSettled([promise1, promise2, promise3])
+        .then((res) => {
+          console.log('res:', res);
+        })
+        .catch((error) => {
+          console.log('error:', error);
+        });
+    </script>
+  </body>
+</html>

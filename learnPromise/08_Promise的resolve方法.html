@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // promise的实例方法
+      // 先要new Promise()创建一个promise对象，然后才能调用promise的实例方法
+      // promise的类方法
+      // promise的类方法是直接通过Promise构造函数调用的方法，而不是通过promise实例调用的方法
+
+      // Promise.resolve('成功的回调');
+
+      // 相当于
+      // new Promise((resolve, reject) => {
+      //   resolve('成功的回调')
+      // });
+
+      // 应用场景：
+      // 1.将一个普通值转换为promise对象
+      // 2.将一个thenable对象转换为promise对象
+      // const stuList = [
+      //   { name: '张三', age: 18 },
+      //   { name: '李四', age: 20 },
+      //   { name: '王五', age: 22 }
+      // ];
+
+      // Promise.resolve(stuList)
+      //   .then((res) => {
+      //     console.log('res:', res);
+      //   })
+      //   .catch((error) => {
+      //     console.log('error:', error);
+      //   });
+
+      // reject方法的作用是将一个promise对象的状态变为rejected，并返回一个新的promise对象
+      //Promise.reject()相当于主动抛出一个异步错误，
+      // 如果不写.catch()接住这个错误，浏览器控制台就会报红色的Uncaught (in promise) 警告
+      // Promise.reject('失败的回调');
+      // 相当于
+      // new Promise((_, reject) => {
+      //   reject('失败的回调')
+      // });
+      Promise.reject('失败的回调')
+        .then((res) => {
+          console.log('res:', res);
+        })
+        .catch((error) => {
+          console.log('error:', error);
+        });
+    </script>
+  </body>
+</html>

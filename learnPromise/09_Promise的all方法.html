@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 创建3个promise对象
+      const promise1 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('promise1');
+        }, 1000);
+      });
+      const promise2 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // resolve('promise2');
+          // 突发错误，promise2失败
+          reject('promise2失败');
+        }, 3000);
+      });
+      const promise3 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('promise3');
+        }, 5000);
+      });
+
+      // Promise.all方法的参数是一个数组
+      // 数组中可以是任意类型的值，包括基本类型、对象、数组、函数等
+      // Promise.all方法的返回值是一个promise对象
+      // 将多个promise对象包装成一个新的promise对象
+      // 1.所有的promise对象都成功，返回一个新的promise对象，状态为fulfilled，返回值是一个数组，数组中包含所有promise对象的返回值，顺序与传入的promise对象的顺序一致
+      // 2.只要有一个promise对象失败，返回一个新的promise对象，状态为rejected，返回值是第一个失败的promise对象的返回值
+      Promise.all([promise1, promise2, promise3])
+        .then((res) => {
+          console.log('res:', res);
+        })
+        .catch((error) => {
+          console.log('error:', error);
+        });
+
+      // 应用场景：
+      // 1.多个异步请求，只有所有的请求都成功，才进行下一步操作
+      // 2.多个异步请求，只要有一个请求失败，就不进行下一步操作
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const promise = new Promise((resolve, reject) => {
+        resolve('成功的回调');
+        // reject('失败的回调');
+      });
+
+      // 1.catch方法的返回值类型
+      // promise
+      //   .catch((error) => {
+      //     console.log('error:', error);
+      //     return 'catch方法的返回值';
+      //   })
+      //   // catch方法的返回值会作为下一个then方法的参数传入
+      //   // catch方法的返回值类型也可以是一个promise对象
+      //   .then((res) => {
+      //     console.log('res:', res);
+      //   });
+
+      // 2.catch方法的执行时机
+      // reject('失败的回调')时，找到最近的catch方法执行
+      promise
+        .then((res) => {
+          console.log('then第一个回调:', res);
+          return 'then第一个回调的返回值';
+        })
+        .then((res) => {
+          console.log('then第二个回调:', res);
+          // 使用throw抛出异常，中断函数的执行，直接进入catch方法
+          throw new Error('then第二个回调抛出的错误');
+        })
+        .then((res) => {
+          console.log('then第三个回调:', res);
+          return 'then第三个回调的返回值';
+        })
+        .catch((error) => {
+          console.log('error:', error);
+        });
+
+      // 中断函数的执行
+      // 1.return
+      // 2.抛出异常
+      // 3.yield 暂停
+    </script>
+  </body>
+</html>
