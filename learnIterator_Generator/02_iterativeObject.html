@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const info = {
+        friends: ['张三', '李四', '王五', '赵六'],
+        numbers: [1, 2, 3, 4, 5]
+      };
+
+      // 1.给info创建一个迭代器，迭代Info对象中的friends数组
+      let index = 0;
+      const infoIterator = {
+        next: function () {
+          if (index < info.friends.length) {
+            return { value: info.friends[index++], done: false };
+          } else {
+            return { value: undefined, done: true };
+          }
+        }
+      };
+      console.log(infoIterator.next()); // { value: '张三', done: false }
+      console.log(infoIterator.next()); // { value: '李四', done: false }
+      console.log(infoIterator.next()); // { value: '王五', done: false }
+      console.log(infoIterator.next()); // { value: '赵六', done: false }
+      console.log(infoIterator.next()); // { value: undefined, done: true }
+
+      // 可以把迭代器合并到对象中
+      // 此时info1对象就变成了一个可迭代对象
+      // 1.必须实现一个Symbol.iterator属性，值是一个函数
+      // 2.函数返回一个迭代器对象
+      const info1 = {
+        friends: ['张三', '李四', '王五', '赵六'],
+        [Symbol.iterator]: function () {
+          let index = 0;
+          return {
+            // next: function () {
+            //   if (index < info1.friends.length) {
+            //     return { value: info1.friends[index++], done: false };
+            //   } else {
+            //     return { value: undefined, done: true };
+            //   }
+            // }
+            // 优化
+            // this指向info1对象，箭头函数没有this，this指向外层作用域
+            next: () => {
+              if (index < this.friends.length) {
+                return { value: this.friends[index++], done: false };
+              } else {
+                return { value: undefined, done: true };
+              }
+            }
+          };
+        }
+      };
+      // 可迭代对象具备下面的特点
+      // info1[Symbol.iterator]; // 拿到一个函数
+      // info1[Symbol.iterator](); // 函数调用
+      const iterator = info1[Symbol.iterator](); // 拿到迭代器对象
+      console.log(iterator.next()); // { value: '张三', done: false }
+
+      // 可迭代对象可以进行类似for...of的迭代
+      for (const item of info1) {
+        console.log(item); // 张三 李四 王五 赵六
+      }
+
+      // 可迭代对象必然有一个Symbol.iterator属性，值是一个函数
+      // 数组是一个可迭代对象，实现原理就是Symbol.iterator
+      const arr = [1, 2, 3, 4, 5];
+      console.log(arr[Symbol.iterator]());
+    </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const names = ['张三', '李四', '王五', '赵六'];
+      const numbers = [1, 2, 3, 4, 5];
+
+      // 创建索引
+      let index = 0;
+
+      // 方案1：针对一个数组name的迭代器
+      // const nameIterator = {
+      //   // next属性是一个函数，返回一个对象
+      //   // next属性要求：
+      //   // 1. 返回一个对象
+      //   // 2. 对象中必须包含done属性（boolean类型），表示是否遍历完成
+      //   // 3. 对象中可以包含value属性（具体值/undefined），表示当前遍历的值
+      //   next: function () {
+      //     // 检查索引是否小于数组长度
+      //     if (index < names.length) {
+      //       return { value: names[index++], done: false };
+      //     } else {
+      //       return { value: undefined, done: true };
+      //     }
+      //   }
+      // };
+
+      const value1 = nameIterator.next();
+      console.log(value1); // { value: '张三', done: false }
+
+      // const value2 = nameIterator.next();
+      // console.log(value2); // { value: '李四', done: false }
+
+      // const value3 = nameIterator.next();
+      // console.log(value3); // { value: '王五', done: false }
+
+      // const value4 = nameIterator.next();
+      // console.log(value4); // { value: '赵六', done: false }
+
+      // const value5 = nameIterator.next();
+      // console.log(value5); // { value: undefined, done: true }
+
+      // 方案2：不同数组通用的迭代器
+      // 封装一个函数
+      function createIterator(array) {
+        let index = 0;
+        // 返回一个迭代器
+        return {
+          next: function () {
+            if (index < array.length) {
+              return { value: array[index++], done: false };
+            } else {
+              return { value: undefined, done: true };
+            }
+          }
+        };
+      }
+
+      // const nameIterator = createIterator(names);
+      const numberIterator = createIterator(numbers);
+
+      console.log(nameIterator.next()); // { value: '张三', done: false }
+      console.log(nameIterator.next()); // { value: '李四', done: false }
+      console.log(nameIterator.next()); // { value: '王五', done: false }
+      console.log(nameIterator.next()); // { value: '赵六', done: false }
+      console.log(nameIterator.next()); // { value: undefined, done: true }
+
+      console.log(numberIterator.next()); // { value: 1, done: false }
+    </script>
+  </body>
+</html>
