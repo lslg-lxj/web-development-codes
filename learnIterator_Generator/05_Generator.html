@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 生成器函数
+      function* generatorFunction() {
+        console.log('开始执行内部代码');
+        console.log('11111111');
+        yield;
+
+        console.log('2222222');
+        // 接收next方法传入的参数
+        const param = yield;
+        console.log('param:', param);
+        yield 2;
+        // return 2;
+        console.log('333333');
+        console.log('内部代码执行结束');
+        return undefined;
+      }
+
+      // 生成器对象(一个函数)
+      const generator = generatorFunction();
+      console.log(generator);
+
+      // 1.生成器提前结束(主动提前中断)
+      // console.log(generator.next());
+      // console.log(generator.return('提前结束'));
+      // console.log(generator.next());
+
+      // 2.生成器提前结束(被动提前中断)
+      console.log(generator.next());
+      console.log(generator.throw(new Error('error')));
+      console.log(generator.next());
+
+      // 要想执行函数内部代码，需要调用generator.next()方法
+      // 遇到yield关键字，函数会暂停执行
+      // console.log(generator.next('next1'));
+      // 接着刚才的进程继续执行
+
+      // 在函数中间位置return
+      // console.log(generator.next());
+      // console.log(generator.next());
+      // console.log(generator.next());
+
+      // 执行代码过程中如何传入参数
+      // console.log(generator.next('next1'));
+      // console.log(generator.next('next2'));
+      // console.log(generator.next('next3'));
+      // console.log(generator.next('next4'));
+    </script>
+  </body>
+</html>

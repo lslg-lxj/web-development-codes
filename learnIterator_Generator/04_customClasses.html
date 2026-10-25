@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 自定义类
+      class Person {
+        constructor(name, age, height, friends) {
+          this.name = name;
+          this.age = age;
+          this.height = height;
+          this.friends = friends;
+        }
+        // 添加实例方法
+        // 一般用来迭代某个属性,对key,value的访问一般使用for...in,for...of,forEach等方法
+        [Symbol.iterator]() {
+          let index = 0;
+          const entries = Object.entries(this);
+          return {
+            next: () => {
+              if (index < this.friends.length) {
+                return { value: this.friends[index++], done: false };
+              } else {
+                return { value: undefined, done: true };
+              }
+            },
+            // 监听迭代器中断
+            return: () => {
+              console.log('迭代器提前结束');
+              return { value: undefined, done: true };
+            }
+          };
+        }
+      }
+
+      const p1 = new Person('张三', 18, 180, ['李四', '王五', '赵六']);
+      console.log(p1);
+      const p2 = new Person('李四', 20, 175, ['张三', '王五', '赵六']);
+      console.log(p2);
+
+      // 对象本身不可迭代
+      // 需求:希望Person创建出来的实例都可以迭代
+
+      for (const item of p1) {
+        console.log(item);
+      }
+
+      for (const item of p2) {
+        console.log(item);
+        // 跳出循环
+        if (item === '王五') {
+          break;
+        }
+      }
+    </script>
+  </body>
+</html>

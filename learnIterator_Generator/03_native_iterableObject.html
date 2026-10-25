@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 原生的可迭代对象
+      // 1.数组
+      const names = ['张三', '李四', '王五', '赵六'];
+      for (const name of names) {
+        console.log(name);
+      }
+      console.log(names[Symbol.iterator]());
+
+      // 2.set
+      const set = new Set(['张三', '李四', '王五', '赵六']);
+      for (const name of set) {
+        console.log(name);
+      }
+
+      console.log(set[Symbol.iterator]());
+
+      // 3.map
+      const map = new Map([
+        ['name', '张三'],
+        ['age', 18],
+        ['gender', '男']
+      ]);
+      for (const [key, value] of map) {
+        console.log(key, value);
+      }
+      console.log(map[Symbol.iterator]());
+
+      // arguments对象
+      function fn() {
+        for (const arg of arguments) {
+          console.log(arg);
+        }
+        console.log(arguments[Symbol.iterator]());
+      }
+      fn(1, 2, 3, 4, 5);
+
+      // 应用场景：
+      // 1.JS的一些语法中
+      // 2.一些类的构造方法中
+      const set1 = new Set();
+      const map1 = new Map();
+
+      // 3.一些常用的方法
+      const p1 = Promise.resolve(1);
+      const p2 = Promise.resolve(2);
+      const p3 = Promise.resolve(3);
+
+      const pSet = new Set([p1, p2, p3]);
+      Promise.all(pSet).then((res) => {
+        console.log(res);
+      });
+
+      function bar() {
+        console.log(arguments);
+        //把arguments对象转为数组
+        const args = Array.from(arguments);
+        console.log(args);
+      }
+
+      bar(1, 2, 3, 4, 5);
+    </script>
+  </body>
+</html>

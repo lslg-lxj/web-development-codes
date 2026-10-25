@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 生成器应用场景
+      // 应用1.优化迭代器
+      const names = ['abc', 'cba', 'nba', 'nba', 'nba', 'nba', 'nba', 'nba', 'nba', 'nba'];
+      const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+      // 传统迭代器
+      // function createIterator(arr) {
+      //   let index = 0;
+      //   return {
+      //     next() {
+      //       if (index < arr.length) {
+      //         return { value: arr[index++], done: false };
+      //       } else {
+      //         return { value: undefined, done: true };
+      //       }
+      //     }
+      //   };
+      // }
+
+      // 生成器是特殊的迭代器
+      // 用生成器函数重构迭代器
+      function* createIterator(arr) {
+        // 每次yield返回arr[i]之后，代码暂停执行
+        // for (let i = 0; i < arr.length; i++) {
+        //   yield arr[i];
+        // }
+        // return undefined;
+
+        // yield语法糖
+        // yield* 依次迭代这个可迭代对象，并返回每次迭代的值
+        yield* arr;
+      }
+
+      const nameIterator = createIterator(names);
+      console.log(nameIterator);
+      console.log(nameIterator.next());
+      console.log(nameIterator.next());
+      console.log(nameIterator.next());
+      console.log(nameIterator.next());
+
+      // 应用2：用生成器函数生成某个范围的值
+      function* generateRange(start, end) {
+        for (let i = start; i <= end; i++) {
+          yield i;
+        }
+      }
+
+      const rangeIterator = generateRange(1, 10);
+      console.log(rangeIterator.next());
+      console.log(rangeIterator.next());
+      console.log(rangeIterator.next());
+
+      // 应用3：用生成器函数生成斐波那契数列
+      function* fibonacci() {
+        let a = 0,
+          b = 1;
+        while (true) {
+          yield a;
+          [a, b] = [b, a + b];
+        }
+      }
+      // const fibIterator = fibonacci();
+      // console.log(fibIterator.next());
+      // console.log(fibIterator.next());
+      // console.log(fibIterator.next());
+
+      // 应用4：替换类中迭代器的实现
+      class Person {
+        constructor(name, age, height, friends) {
+          this.name = name;
+          this.age = age;
+          this.height = height;
+          this.friends = friends;
+        }
+        // 添加实例方法
+        // 条件1：生成器函数
+        // 条件2：yield* 可迭代对象
+        *[Symbol.iterator]() {
+          // yield* this.friends;
+          // yield* Object.values(this);
+          yield* Object.entries(this);
+        }
+      }
+    </script>
+  </body>
+</html>
