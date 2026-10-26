@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function requestData(url) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(url + '请求数据成功');
+            // reject(url + '请求数据失败');
+          }, 5000);
+        });
+      }
+      // 异步函数中的await关键字
+      // 1.await关键字只能在异步函数中使用
+      async function getData() {
+        // 通常情况下，await关键字后面跟随的是一个Promise对象
+        // await关键字会让异步函数暂停执行，等待Promise对象的状态变为fulfilled或rejected
+        const res1 = await requestData('张三');
+        console.log('第一次结果：', res1);
+
+        const res2 = await requestData('李四' + res1);
+        console.log('第二次结果：', res2);
+      }
+
+      // getData()
+      //   .then((data) => {
+      //     console.log(data);
+      //   })
+      //   .catch((error) => {
+      //     console.log('捕获到异常：', error);
+      //   });
+
+      // async和await结合使用
+      async function test() {
+        console.log('test function');
+        return 'test';
+      }
+
+      async function bar() {
+        console.log('bar function');
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve('bar function promise');
+          }, 2000);
+        });
+      }
+
+      async function demo() {
+        console.log('demo function');
+        then: () => {
+          console.log('demo function then');
+        };
+      }
+
+      async function foo() {
+        console.log('foo function');
+
+        const res1 = await requestData('张三');
+        console.log('res1:', res1);
+
+        const res2 = await test();
+        console.log('res2:', res2);
+
+        const res3 = await bar();
+        console.log('res3:', res3);
+
+        const res4 = await demo();
+        console.log('res4:', res4);
+      }
+
+      foo();
+    </script>
+  </body>
+</html>

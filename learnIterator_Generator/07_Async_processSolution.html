@@ -29,6 +29,15 @@
         .......
       */
       // 回调函数的层层嵌套==>回调地狱
+      // requestData('http://example.com').then((data1) => {
+      //   console.log('The first request:', data1);
+      //   requestData(data1).then((data2) => {
+      //     console.log('The second request:', data2);
+      //     requestData(data2).then((data3) => {
+      //       console.log('The third request:', data3);
+      //     });
+      //   });
+      // });
       // 方案1：Promise对象的链式调用==>解决回调地狱
       // function getData() {
       //   requestData('http://example.com')
@@ -50,7 +59,6 @@
       //     });
       // }
 
-      // 方案2：生成器==>解决回调地狱
       // 目标结构：
       // function getData() {
       //   const res1 = requestData('http://example.com');
@@ -59,6 +67,7 @@
       //   console.log(res3);
       // }
 
+      // 方案2：生成器==>解决回调地狱
       // function* getData() {
       //   const res1 = yield requestData('http://example.com');
       //   console.log('第一次结果：', res1);
@@ -69,16 +78,17 @@
       // }
 
       // const generator = getData();
-      // // console.log(generator.next());
+
       // generator.next().value.then((res1) => {
+      //   console.log('第一次回调结果：', res1);
       //   generator.next(res1).value.then((res2) => {
+      //     console.log('第二次回调结果：', res2);
       //     generator.next(res2).value.then((res3) => {
+      //       console.log('第三次回调结果：', res3);
       //       generator.next(res3);
       //     });
       //   });
       // });
-
-      // generator.next();
 
       // 方案3：async/await==>解决回调地狱
       async function getData() {
@@ -89,6 +99,26 @@
         const res3 = await requestData('http://example.com' + res2);
         console.log('第三次结果：', res3);
       }
+
+      // 补充
+      // 生成器自动执行
+      // function autoExecuteFn(genFn) {
+      //   const generator = genFn();
+      //   // 递归函数
+      //   function execute(res) {
+      //     // Promise对象
+      //     const result = generator.next(res);
+      //     // 执行结束
+      //     if (result.done) return;
+      //     // Promise对象的回调函数(成功)中再次调用递归函数
+      //     result.value.then((res) => {
+      //       execute(res);
+      //     });
+      //   }
+      //   execute();
+      // }
+
+      // autoExecuteFn(getData);
 
       getData();
     </script>
