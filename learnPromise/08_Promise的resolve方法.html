@@ -14,9 +14,9 @@
 
       // Promise.resolve('成功的回调');
 
-      // 相当于
+      // // 相当于
       // new Promise((resolve, reject) => {
-      //   resolve('成功的回调')
+      //   resolve('成功的回调');
       // });
 
       // 应用场景：
@@ -44,13 +44,13 @@
       // new Promise((_, reject) => {
       //   reject('失败的回调')
       // });
-      Promise.reject('失败的回调')
-        .then((res) => {
-          console.log('res:', res);
-        })
-        .catch((error) => {
-          console.log('error:', error);
-        });
+      // Promise.reject('失败的回调')
+      //   .then((res) => {
+      //     console.log('res:', res);
+      //   })
+      //   .catch((error) => {
+      //     console.log('error:', error);
+      //   });
     </script>
   </body>
 </html>
