@@ -10,11 +10,30 @@
       function requestData(url) {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
-            resolve(url + '请求数据成功');
-            // reject(url + '请求数据失败');
+            // resolve(url + '请求数据成功');
+            reject(url + '请求数据失败');
           }, 5000);
         });
       }
+      async function testAwait() {
+        console.log('test函数开始执行');
+        const res1 = await requestData('test1');
+        console.log('111111111');
+        console.log('res1:', res1);
+        const res2 = await requestData('test2');
+        console.log('222222222');
+        console.log('res2:', res2);
+        console.log('test函数执行结束');
+      }
+
+      // testAwait()
+      //   .then((data) => {
+      //     console.log('then回调执行', data);
+      //   })
+      //   .catch((error) => {
+      //     console.error('catch回调执行:', error);
+      //   });
+
       // 异步函数中的await关键字
       // 1.await关键字只能在异步函数中使用
       async function getData() {
@@ -73,7 +92,7 @@
         console.log('res4:', res4);
       }
 
-      foo();
+      // foo();
     </script>
   </body>
 </html>
