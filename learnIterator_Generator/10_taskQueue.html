@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // javascript单线程代码执行过程
+      // let name = '张三';
+      // name = '李四';
+
+      // function foo(params) {
+      //   console.log('foo function');
+      //   return 'foo';
+      // }
+      // function test() {
+      //   console.log('test function');
+
+      //   foo();
+      //   return 'test';
+      // }
+
+      console.log('开始');
+      let sum = 0;
+
+      for (let i = 0; i < 1_000_000_000; i++) {
+        sum += i;
+      }
+      console.log('sum:', sum);
+      console.log('结束');
+    </script>
+  </body>
+</html>
