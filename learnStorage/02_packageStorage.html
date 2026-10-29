@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./cache.js"></script>
+    <script>
+      // localCache.setCache('name', '张三');
+
+      // localStorage本身不能存储对象类型
+      const userInfo = {
+        name: '张三',
+        age: 18,
+        level: 3,
+        url: 'http://zhangan.com'
+      };
+      // localStorage.setItem('userInfo', userInfo);
+      // console.log('userInfo:', localStorage.getItem('userInfo'));
+
+      // localStorage.setItem('userInfo', JSON.stringify(userInfo));
+      // console.log(JSON.parse(localStorage.getItem('userInfo')));
+
+      localCache.setCache('userInfo', userInfo);
+      console.log(localCache.getCache('userInfo'));
+    </script>
+  </body>
+</html>

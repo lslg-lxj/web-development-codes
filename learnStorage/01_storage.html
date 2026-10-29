@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <a href="./about.html">关于</a>
+    <script>
+      // storage
+      // const msg = 'hello storage';
+      // const token = '1234567890';
+
+      // console.log(msg);
+      // console.log(msg.length);
+      // console.log(token);
+      // console.log(token.length);
+
+      // 保存到storage
+      // const username = 'zhangsan';
+      // const password = '123456';
+
+      // localStorage.setItem('username', username);
+      // localStorage.setItem('password', password);
+
+      // token信息在关闭页面之后会消失
+      // 下次打开页面时，需要重新向服务器请求
+      // 信息持久化：在本地先拿
+      // 从storage中获取数据
+      // let token = localStorage.getItem('token');
+      // if (!token) {
+      //   // 如果没有token，则向服务器请求
+      //   console.log('从服务器获取token');
+      //   token = '1234567890';
+      //   // 保存到storage
+      //   localStorage.setItem('token', token);
+      // }
+      // console.log('token:', token);
+
+      // localStorage和sessionStorage
+      // 1.localStorage
+      // localStorage.setItem('username', 'zhangsan');
+      // localStorage.setItem('password', '123456');
+      // 2.sessionStorage
+      // sessionStorage.setItem('username', 'zhangsan');
+      // sessionStorage.setItem('password', '123456');
+
+      //storage常见属性和方法
+      // 1. getItem(key) - 根据键名获取值
+      // 2. setItem(key, value) - 根据键名设置值
+      // 3. removeItem(key) - 根据键名删除值
+      // 4. clear() - 清空所有数据
+      // console.log(localStorage.length);
+
+      // 抽取常量:工程化
+      // const ACCESS_TOKEN = 'token';
+      // localStorage.setItem(ACCESS_TOKEN, '1234567890');
+      // console.log(localStorage.getItem(ACCESS_TOKEN));
+
+      // 根据索引获取key
+      // console.log(localStorage.key(0));
+    </script>
+  </body>
+</html>
