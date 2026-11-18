@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 使用严格模式
+      'use strict';
+      function foo(arg1, arg2) {
+        console.log('foo函数被调用,this:', this);
+        // console.log('arg1:', arg1);
+        // console.log('arg2:', arg2);
+      }
+      const obj = {
+        name: 'obj'
+      };
+
+      // call方法
+      // 第一个参数是函数执行时的this指向，
+      // 后续参数是传递给函数的参数。
+      // foo.call(obj, 'call-value', 'call-value');
+      foo.call('abc');
+      foo.call(null); // this->window
+      foo.call(undefined); // this->window
+
+      // apply方法
+      // 第一个参数是函数执行时的this指向
+      // 第二个参数是一个数组，数组中的元素会作为参数传递给函数。
+      // foo.apply(obj, ['apply-value', 'apply-value']);
+
+      // bind方法
+      // const boundFoo = foo.bind(obj);
+      // boundFoo();
+    </script>
+  </body>
+</html>

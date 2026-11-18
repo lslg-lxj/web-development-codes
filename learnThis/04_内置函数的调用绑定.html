@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>点击我</button>
+    <script>
+      function mySetTimeout(callback, delay) {
+        // 模拟setTimeout的行为
+        setTimeout(function () {
+          callback();
+        }, delay);
+      }
+
+      mySetTimeout(() => {
+        console.log('定时器函数', this);
+      }, 1000);
+
+      setTimeout(() => {
+        console.log('定时器函数', this);
+      }, 1000);
+
+      // 按钮的点击监听
+      const button = document.querySelector('button');
+      button.onclick = function () {
+        console.log('按钮点击事件', this);
+      };
+
+      button.addEventListener('click', function () {
+        console.log('按钮点击事件', this);
+      });
+
+      var names = ['Alice', 'Bob', 'Charlie'];
+      // forEach的第二个参数指定了回调函数的this指向
+      names.forEach(function (name) {
+        console.log('forEach回调函数', this, name);
+      }, names);
+    </script>
+  </body>
+</html>

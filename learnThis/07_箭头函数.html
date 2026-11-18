@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 定义函数
+      // function foo(){}
+      // var bar = function(){}  //函数表达式
+
+      // 箭头函数
+      // var foo = (name, age) => {
+      //   console.log('箭头函数foo被调用,this:', this);
+      //   console.log('name:', name);
+      //   console.log('age:', age);
+      // };
+      // foo('Alice', 25); // this->window
+
+      // 箭头函数不会绑定this
+      // 箭头函数不能作为构造函数来使用（不能和new一起使用，会抛出错误）
+
+      // 应用场景
+      var names = ['Alice', 'Bob', 'Charlie'];
+      var nums = [1, 2, 3, 4, 5];
+      // names.forEach((name,index,arr) => {
+      //   console.log('name:', name);
+      //   console.log('index:', index);
+      //   console.log('arr:', arr);
+      //   console.log('this->', this);
+      // });
+
+      // 箭头函数简写优化
+      // 1.如果只有一个参数,可以省略小括号
+      // names.forEach(name => {
+      //   console.log('name:', name);
+      // });
+      // 2. 如果函数体只有一条语句,可以省略大括号和return关键字
+      // names.forEach(name => console.log('name:', name));
+
+      // 3. 如果函数体只有一条语句,并且是返回值,可以省略大括号和return关键字
+      // nums.filter((num) => num % 2 === 0).forEach((num) => console.log('num:', num));
+
+      // 4. 如果函数体只有一条语句,并且是返回对象,需要用小括号包裹对象字面量
+      // 避免和函数执行体混淆
+      // var getPerson = (name, age) => ({ name: name, age: age });
+      // var person = getPerson('Alice', 25);
+      // console.log('person:', person);
+
+      // 练习：获取所有偶数的平方和
+      // var sum = nums
+      //   .filter((item) => item % 2 === 0)
+      //   .map((item) => item * item)
+      //   .reduce((prevValue, item) => prevValue + item);
+      // console.log('sum:', sum);
+
+      // 箭头函数中的this使用
+      // 函数作用域中，存在this标识符
+      function foo() {
+        console.log('foo', this);
+      }
+
+      // 箭头函数中根本不存在this标识符
+      var bar = () => {
+        console.log('bar', this);
+      };
+
+      // foo(); // this->window
+      // this有值，取决于变量的查找规则
+      // 在上层作用域上查找
+      // bar(); // this->window
+
+      // console.log('全局的this->', this);
+
+      // 验证
+      // bar.apply('hello'); // this->window
+      // bar.call('hello'); // this->window
+
+      var obj = {
+        name: 'obj',
+        // foo: function () {
+        foo: () => {
+          console.log('foo函数调用,this->', this);
+          var bar = () => {
+            // 当前作用域中没有this标识符，向上查找，找到foo函数的this
+            console.log('bar箭头函数被调用,this:', this);
+          };
+          return bar;
+        }
+      };
+
+      // bar是一个箭头函数
+      var bar = obj.foo();
+      // bar();
+      // bar.apply('hello');
+
+      // 应用场景：
+
+      // 网络请求工具函数
+      function request(url, callback) {
+        var res = [
+          { id: 1, name: 'Alice' },
+          { id: 2, name: 'Bob' },
+          { id: 3, name: 'Charlie' }
+        ];
+        callback(res);
+      }
+
+      // 实际代码操作位置
+      var obj = {
+        names: [],
+        // ES6之前
+        // var _this = this;
+        // ES6之后：箭头函数
+        // 获取名字的函数
+        getNames: function () {
+          request('http://api.com', (res) => {
+            this.names = res;
+            console.log('this.names:', this.names);
+          });
+        }
+      };
+
+      obj.getNames();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 定义函数
+      // function foo() {
+      //   console.log('this:', this);
+      // }
+
+      // 函数调用方式：
+      // 方式1：直接调用
+      // foo();
+
+      // 方式2：作为对象的方法调用
+      // const obj = {
+      //   name: 'obj',
+      //   foo: foo
+      // };
+      // obj.foo();
+      // console.log('obj:', obj);
+
+      // this绑定规则：
+      // 1. 默认绑定：
+      // 非strict模式下，函数中的this指向全局对象（浏览器中是window）
+      // 在strict模式下，this为undefined。
+      // 严格模式下
+      // 'use strict'
+      // 独立函数调用
+
+      function foo() {
+        console.log('this:', this);
+      }
+
+      // foo();
+
+      // function test(fn) {
+      //   fn();
+      // }
+
+      // test(obj.foo); //this->window
+
+      // 2. 隐式绑定：
+      // 当函数作为对象的方法调用时，this指向调用该方法的对象。
+      const obj = {
+        name: 'obj'
+        // foo: foo
+      };
+      // obj.foo(); //this->obj
+
+      // var bar = obj.foo;
+      // 独立函数调用
+      // bar(); //this->window
+
+      // 3. 显式绑定：
+      // 使用call、apply或bind方法可以显式地指定函数的this指向。
+      // call方法
+      foo.call(obj);
+      foo.call(123);
+      foo.call('hello');
+
+      foo.call(null); // this->window
+      foo.call(undefined); // this->window
+
+      // apply方法
+      // foo.apply(obj);
+
+      // bind方法
+      // const boundFoo = foo.bind(obj);
+      // boundFoo();
+
+      // 4. new绑定：当函数作为构造函数调用时，this指向新创建的对象。
+      // new执行的操作:
+      // 创建一个新对象
+      // 将this指向这个新对象
+      // 执行函数体中的代码
+      // 没有显示返回非空格对象时，默认返回这个新对象
+      function Person(name) {
+        this.name = name;
+      }
+
+      const person = new Person('Alice');
+      // console.log('person:', person);
+    </script>
+  </body>
+</html>

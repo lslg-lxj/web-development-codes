@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function foo() {
+        console.log('foo函数被调用,this:', this);
+      }
+
+      var obj = {
+        foo: foo
+      };
+      // 1.显式绑定的优先级高于隐式绑定
+      // apply/call优先级高于默认绑定
+      obj.foo.apply(obj); // this->obj
+      obj.foo.call(obj); // this->obj
+
+      // bind高于默认绑定
+      const boundFoo = foo.bind('aaa');
+      var obj = {
+        foo: boundFoo
+      };
+      obj.foo(); // this->'aaa'
+
+      // 2.new绑定的优先级高于隐式绑定
+      var obj = {
+        name: 'lucy',
+        foo: function () {
+          console.log('foo:', this);
+          console.log('foo:', this === obj);
+        }
+      };
+      new obj.foo(); // this->new创建的对象
+
+      // 3.new绑定的优先级高于显式绑定(bind)
+      // note:new不可以和apply/call一起使用
+      // new可以和bind一起使用
+      // var bindFn = foo.bind('bind-this');
+      // new bindFn(); // this->new创建的对象
+
+      // 4.bind和apply的优先级
+      var bindFn = foo.bind('bind-this');
+      bindFn.apply('apply-this'); // this->'bind-this'
+
+      // 5.bind和call的优先级
+      var bindFn = foo.bind('bind-this');
+      bindFn.call('call-this'); // this->'bind-this'
+    </script>
+  </body>
+</html>
